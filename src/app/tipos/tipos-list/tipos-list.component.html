@@ -1,0 +1,16 @@
+<div class="card-body">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Descricao</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tipo of tipos$">
+        <td>{{ tipo.id }}</td>
+        <td>{{ tipo.descricao }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
