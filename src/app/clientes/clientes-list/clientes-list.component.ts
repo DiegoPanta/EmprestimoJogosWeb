@@ -1,29 +1,29 @@
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { TiposService } from './../tipos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, EMPTY } from 'rxjs';
 import { catchError, switchMap, take } from 'rxjs/operators';
-import { TipoList } from '../tipo-list';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Tipo } from '../tipo';
+import { Cliente } from '../cliente';
+import { ClienteList } from '../cliente-list';
+import { ClientesService } from '../clientes.service';
 
 @Component({
-  selector: 'app-tipos-list',
-  templateUrl: './tipos-list.component.html',
-  styleUrls: ['./tipos-list.component.scss'],
+  selector: 'app-clientes-list',
+  templateUrl: './clientes-list.component.html',
+  styleUrls: ['./clientes-list.component.scss'],
   preserveWhitespaces: true
 })
-export class TiposListComponent implements OnInit {
+export class ClientesListComponent implements OnInit {
 
   deleteModalRef: BsModalRef;
   @ViewChild('deleteModal') deleteModal;
 
-  tipos$: Observable<TipoList>;
-  selectedTipo: Tipo;
+  clientes$: Observable<ClienteList>;
+  selectedCliente: Cliente;
 
   constructor(
-    private tipoService: TiposService,
+    private clienteService: ClientesService,
     private alertService: AlertModalService,
     private router: Router,
     private route: ActivatedRoute
@@ -34,7 +34,7 @@ export class TiposListComponent implements OnInit {
   }
 
   onRefresh(){
-    this.tipos$ = this.tipoService.list()
+    this.clientes$ = this.clienteService.list()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -43,41 +43,41 @@ export class TiposListComponent implements OnInit {
     );
   }
 
-  handleError() {
-    this.alertService.showAlertDanger('Erro ao carregar tipo. Tente mais tarde.');
+  handleError(){
+    this.alertService.showAlertDanger('Erro ao carregar cliente. Tente mais tarde.');
   }
 
   onEdit(id){
     this.router.navigate(['editar', id], {relativeTo: this.route});
   }
 
-  onDelete(tipo){
-    this.selectedTipo = tipo;
-    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover esse tipo?');
+  onDelete(cliente){
+    this.selectedCliente = cliente;
+    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover esse cliente?');
     result$.asObservable()
     .pipe(
       take(1),
-      switchMap(result => result ? this.tipoService.delete(tipo.id) : EMPTY)
+      switchMap(result => result ? this.clienteService.delete(cliente.id) : EMPTY)
     )
     .subscribe(
       success => {
         this.onRefresh();
       },
       error => {
-        this.alertService.showAlertDanger('Erro ao remover tipo. Tente mais tarde.')
+        this.alertService.showAlertDanger('Erro ao remover cliente. Tente mais tarde.')
       }
     );
   }
 
   onConfirmDelete(){
-    this.tipoService.delete(this.selectedTipo.id)
+    this.clienteService.delete(this.selectedCliente.id)
       .subscribe(
         success => {
           this.onRefresh();
           this.deleteModalRef.hide();
         },
         error => {
-          this.alertService.showAlertDanger('Erro ao remover tipo. Tente mais tarde.');
+          this.alertService.showAlertDanger('Erro ao remover cliente. Tente mais tarde.');
           this.deleteModalRef.hide();
         }
       );

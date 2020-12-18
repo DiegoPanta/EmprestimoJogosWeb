@@ -1,0 +1,58 @@
+<form
+  class="needs-validation"
+  novalidate
+  [formGroup]="form"
+  style="padding-top: 10px"
+>
+  <div class="form-row">
+    <div class="col-sm-12">
+      <label for="nome">Nome</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nome"
+        placeholder="Nome do Cliente"
+        formControlName="nome"
+        [ngClass]="{ 'is-invalid': submitted && hasError('nome') }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="hasError('nome') && hasError('nome')['required']"
+      >
+        Por favor informe o cliente.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="hasError('nome') && hasError('nome')['maxLength']"
+      >
+        Precisa ter no máximo
+        {{ hasError("nome")["maxLength"].requiredLength }} caracteres.
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="codigo">Codigo</label>
+      <input type="text" class="form-control"
+        id="codigo"
+        placeholder="1234"
+        formControlName="codigo"
+        [ngClass]="{'is-invalid': submitted && hasError('codigo')}" />
+    </div>
+    <div class="form-row">
+      <label for="telefone">Telefone</label>
+      <input type="text" class="form-control"
+        id="telefone"
+        placeholder="(XX) XXXXX-XXXX )"
+        formControlName="telefone"
+        [ngClass]="{'is-invalid': submitted && hasError('telefone')}" />
+    </div>
+  </div>
+  <div style="margin-top: 10px">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      Salvar
+    </button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+</form>

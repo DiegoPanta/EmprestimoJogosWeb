@@ -1,0 +1,42 @@
+<form
+  class="needs-validation"
+  novalidate
+  [formGroup]="form"
+  style="padding-top: 10px"
+>
+  <div class="form-row">
+    <div class="col-sm-12">
+      <label for="descricao">Descrição</label>
+      <input
+        type="text"
+        class="form-control"
+        id="descricao"
+        placeholder="Descrição do Tipo"
+        formControlName="descricao"
+        [ngClass]="{ 'is-invalid': submitted && hasError('descricao') }"
+      />
+
+      <div
+        class="invalid-feedback"
+        *ngIf="hasError('descricao') && hasError('descricao')['required']"
+      >
+        Por favor informe um tipo.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="hasError('descricao') && hasError('descricao')['maxLength']"
+      >
+        Precisa ter no máximo
+        {{ hasError("descricao")["maxLength"].requiredLength }} caracteres.
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 10px">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      Salvar
+    </button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+</form>

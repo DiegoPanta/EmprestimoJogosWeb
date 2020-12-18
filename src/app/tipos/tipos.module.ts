@@ -1,13 +1,14 @@
+import { TiposRoutingModule } from './tipos-routing.module';
+import { TiposListComponent } from './tipos-list/tipos-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TiposListComponent } from './tipos-list/tipos-list.component';
-import { TiposRoutingModule } from './tipos-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TiposFormComponent } from './tipos-form/tipos-form.component';
 
 
 
 @NgModule({
-  declarations: [TiposListComponent],
+  declarations: [TiposListComponent, TiposFormComponent],
   imports: [
     CommonModule,
     TiposRoutingModule,

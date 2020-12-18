@@ -1,8 +1,8 @@
-import { TiposService } from './../tipos.service';
+import { TiposService } from './../tipos/tipos.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Tipo } from '../tipo';
+import { Tipo } from '../tipos/tipo';
 
 @Injectable({
   providedIn: 'root'

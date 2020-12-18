@@ -1,11 +1,11 @@
 <div class="card mt-3">
   <div class="card-header">
     <div class="float-left">
-      <h4>Tipos</h4>
+      <h4>Clientes</h4>
     </div>
     <div class="float-right">
       <button type="button" class="btn btn-primary" [routerLink]="['novo']">
-        Novo Tipo
+        Novo Cliente
       </button>
     </div>
   </div>
@@ -14,18 +14,25 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Descricao</th>
+          <th>Nome</th>
+          <th>Codigo</th>
+          <th>Telefone</th>
           <th><span class="float-right">Ações</span></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tipo of (tipos$ | async)?.tipos">
-          <td>{{ tipo.id }}</td>
-          <td>{{ tipo.descricao }}</td>
+        <tr *ngFor="let cliente of (clientes$ | async)?.clientes">
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.codigo }}</td>
+          <td>{{ cliente.telefone }}</td>
           <td>
             <span class="float-right">
+              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="onEdit(course.id)">
+                Atualizar
+              </button>
               <button class="btn btn-outline-danger mb-1 btn-sm"
-                (click)="onDelete(tipo)">
+                (click)="onDelete(cliente)">
                   Remover
               </button>
             </span>
@@ -38,7 +45,7 @@
 
 <ng-template #deleteModal>
   <div class="modal-body text-center">
-    <p>Tem certeza que deseja remover esse tipo?</p>
+    <p>Tem certeza que deseja remover esse cliente?</p>
     <button type="button" class="btn btn-default" (click)="onConfirmDelete()">
       Sim
     </button>
